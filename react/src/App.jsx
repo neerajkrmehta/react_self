@@ -5,14 +5,21 @@ import './App.css'
 import Profile from './Components/Profile'
 
 function App() {
+let person = {
+  name: "neeraj",
+  age: 23,
+  location: "bhagalpur",
+  experiance: "none",
+};
 
 
+return (
+  <>
+   
 
-return(
-
-<Profile></Profile>
-
-)
+    <Profile name="neeraj"> Profile</Profile>
+  </>
+);
 }
 
 
