@@ -3,21 +3,26 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Profile from './Components/Profile'
+import people from './Components/Data/Data'
 
 function App() {
-let person = {
-  name: "neeraj",
-  age: 23,
-  location: "bhagalpur",
-  experiance: "none",
-};
 
+ const chemists = people.filter((person) => person.profession === "chemist");
 
+ const listItems = chemists.map((person) => (
+   <li>
+   
+     <p>
+     
+       <b>{person.name}:</b>
+       {" " + person.profession + " "}
+       known for {person.accomplishment}
+     </p>
+   </li>
+ ));
 return (
   <>
-   
-
-    <Profile name="neeraj"> Profile</Profile>
+   <ul>{listItems}</ul>
   </>
 );
 }
