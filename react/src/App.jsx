@@ -4,17 +4,34 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Profile from './Components/Profile'
 import Button from './Components/Button/Button'
-// import people from './Components/Data/Data'
+import list from './Components/Data/Data'
+
 
 function App() {
+const [index, setIndex] = useState(0);
+const [showMore, setShowMore] = useState(false)
+const hasNext = index < list.length - 1
+function handleNextClick(){
+ if(hasNext){
+   setIndex(index + 1);
+ } else{
+  setIndex(0)
+ }
+}
 
- 
+function handleMoreClick(){
+setShowMore(!showMore)
+}
+
+ let sculpture = list[index];
 return (
   <>
-    <Button 
-    onclickplay={()=>alert('playing')}
-    onclickstop={()=>alert('stoping')}
-     />
+   <button onClick={handleNextClick}>Next</button>
+   <h2>{sculpture.name} by {sculpture.artist}</h2>
+   <h3>({index +1} of {list.length})</h3>
+   <button onClick={handleMoreClick}>{showMore ? 'Hide' : 'Show'} details</button>
+   {showMore && <p>{sculpture.description}</p>}
+   <img src={sculpture.url} alt={sculpture.alt} />
   </>
 );
 }
