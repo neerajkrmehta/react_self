@@ -8,13 +8,6 @@ import list from './Components/Data/Data'
 import getFinalState from './Components/ProcessQueue'
 
 
-
-function increment(n) {
-  return n + 1;
-}
-increment.toString = () => "n => n+1";
-
-
 function App() {
 
   const [position, setPosition] = useState({
