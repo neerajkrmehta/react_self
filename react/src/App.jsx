@@ -8,35 +8,34 @@ import list from './Components/Data/Data'
 import getFinalState from './Components/ProcessQueue'
 
 
+const initialItems = [
+  { title: "pretzels", id: 0 },
+  { title: "crispy seaweed", id: 1 },
+  { title: "granola bar", id: 2 },
+];
+
 function App() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [fullName, setFullName] = useState("");
-
-  function handleFirstNameChange(e) {
-    setFirstName(e.target.value);
-    setFullName(e.target.value + " " + lastName);
-  }
-
-  function handleLastNameChange(e) {
-    setLastName(e.target.value);
-    setFullName(firstName + " " + e.target.value);
-  }
+  const [items, setItems] = useState(initialItems);
+  const [selectedItem, setSelectedItem] = useState(items[0]);
 
   return (
     <>
-      <h2>Let’s check you in</h2>
-      <label>
-        First name: <input value={firstName} onChange={handleFirstNameChange} />
-      </label>
-      <br />
-      <br />
-      <label>
-        Last name: <input value={lastName} onChange={handleLastNameChange} />
-      </label>
-      <p>
-        Your ticket will be issued to: <b>{fullName}</b>
-      </p>
+      <h2>What's your travel snack?</h2>
+      <ul>
+        {items.map((item) => (
+          <li key={item.id}>
+            {item.title}{" "}
+            <button
+              onClick={() => {
+                setSelectedItem(item);
+              }}
+            >
+              Choose
+            </button>
+          </li>
+        ))}
+      </ul>
+      <p>You picked {selectedItem.title}.</p>
     </>
   );
 }
