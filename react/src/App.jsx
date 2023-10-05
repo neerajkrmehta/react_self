@@ -9,46 +9,37 @@ import getFinalState from './Components/ProcessQueue'
 
 
 function App() {
-  const [text, setText] = useState("");
-  const [isSending, setIsSending] = useState(false);
-  const [isSent, setIsSent] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [fullName, setFullName] = useState("");
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setIsSending(true);
-    await sendMessage(text);
-    setIsSending(false);
-    setIsSent(true);
+  function handleFirstNameChange(e) {
+    setFirstName(e.target.value);
+    setFullName(e.target.value + " " + lastName);
   }
 
-  if (isSent) {
-    return <h1>Thanks for feedback!</h1>;
+  function handleLastNameChange(e) {
+    setLastName(e.target.value);
+    setFullName(firstName + " " + e.target.value);
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <p>How was your stay at The Prancing Pony?</p>
-      <textarea
-        disabled={isSending}
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
+    <>
+      <h2>Let’s check you in</h2>
+      <label>
+        First name: <input value={firstName} onChange={handleFirstNameChange} />
+      </label>
       <br />
-      <button disabled={isSending} type="submit">
-        Send
-      </button>
-      {isSending && <p>Sending...</p>}
-    </form>
+      <br />
+      <label>
+        Last name: <input value={lastName} onChange={handleLastNameChange} />
+      </label>
+      <p>
+        Your ticket will be issued to: <b>{fullName}</b>
+      </p>
+    </>
   );
 }
-
-// Pretend to send a message.
-function sendMessage(text) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, 2000);
-  });
-}
-
 
 
 export default App
