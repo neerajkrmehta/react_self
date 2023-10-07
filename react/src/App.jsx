@@ -1,44 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Profile from './Components/Profile'
-import Button from './Components/Button/Button'
-import list from './Components/Data/Data'
-import getFinalState from './Components/ProcessQueue'
+import { useState } from 'react';
 
-
-const initialItems = [
-  { title: "pretzels", id: 0 },
-  { title: "crispy seaweed", id: 1 },
-  { title: "granola bar", id: 2 },
-];
-
-function App() {
-  const [items, setItems] = useState(initialItems);
-  const [selectedItem, setSelectedItem] = useState(items[0]);
-
+function Panel({ title, children }) {
+  const [isActive, setIsActive] = useState(false);
   return (
-    <>
-      <h2>What's your travel snack?</h2>
-      <ul>
-        {items.map((item) => (
-          <li key={item.id}>
-            {item.title}{" "}
-            <button
-              onClick={() => {
-                setSelectedItem(item);
-              }}
-            >
-              Choose
-            </button>
-          </li>
-        ))}
-      </ul>
-      <p>You picked {selectedItem.title}.</p>
-    </>
+    <section className="panel">
+      <h3>{title}</h3>
+      {isActive ? (
+        <p>{children}</p>
+      ) : (
+        <button onClick={() => setIsActive(true)}>
+          Show
+        </button>
+      )}
+    </section>
   );
 }
 
-
-export default App
+export default function Accordion() {
+  return (
+    <>
+      <h2>Almaty, Kazakhstan</h2>
+      <Panel title="About">
+        With a population of about 2 million, Almaty is Kazakhstan's largest city. From 1929 to 1997, it was its capital city.
+      </Panel>
+      <Panel title="Etymology">
+        The name comes from <span lang="kk-KZ">алма</span>, the Kazakh word for "apple" and is often translated as "full of apples". In fact, the region surrounding Almaty is thought to be the ancestral home of the apple, and the wild <i lang="la">Malus sieversii</i> is considered a likely candidate for the ancestor of the modern domestic apple.
+      </Panel>
+    </>
+  );
+}
