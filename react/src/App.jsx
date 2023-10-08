@@ -1,31 +1,30 @@
-import { useReducer } from "react";
-import Chat from "./Chat.js";
-import ContactList from "./ContactList.js";
-import { initialState, messengerReducer } from "./messengerReducer";
+import { useState } from "react";
 
-export default function Messenger() {
-  const [state, dispatch] = useReducer(messengerReducer, initialState);
-  const message = state.message;
-  const contact = contacts.find((c) => c.id === state.selectedId);
+export default function Chat({ contact, message, dispatch }) {
   return (
-    <div>
-      <ContactList
-        contacts={contacts}
-        selectedId={state.selectedId}
-        dispatch={dispatch}
+    <section className="chat">
+      <textarea
+        value={message}
+        placeholder={"Chat to " + contact.name}
+        onChange={(e) => {
+          dispatch({
+            type: "edited_message",
+            message: e.target.value,
+          });
+        }}
       />
-      <Chat
-        key={contact.id}
-        message={message}
-        contact={contact}
-        dispatch={dispatch}
-      />
-    </div>
+      <br />
+      <button
+        onClick={() => {
+          alert(`Sending "${message}" to ${contact.email}`);
+          dispatch({
+            type: "edited_message",
+            message: "",
+          });
+        }}
+      >
+        Send to {contact.email}
+      </button>
+    </section>
   );
 }
-
-const contacts = [
-  { id: 0, name: "Taylor", email: "taylor@mail.com" },
-  { id: 1, name: "Alice", email: "alice@mail.com" },
-  { id: 2, name: "Bob", email: "bob@mail.com" },
-];
