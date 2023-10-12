@@ -1,11 +1,34 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
-export default function Counter() {
-  const [count, setCount] = useState(0);
+export default function Chat() {
+  const [text, setText] = useState("");
+  const [isSending, setIsSending] = useState(false);
+  const timeoutRef = useRef(null);
 
-  function handleClick() {
-    setCount(count + 1);
+  function handleSend() {
+    setIsSending(true);
+    timeoutRef.current = setTimeout(() => {
+      alert("Sent!");
+      setIsSending(false);
+    }, 3000);
   }
 
-  return <button onClick={handleClick}>You clicked {count} times</button>;
+  function handleUndo() {
+    setIsSending(false);
+    clearTimeout(timeoutRef.current);
+  }
+
+  return (
+    <>
+      <input
+        disabled={isSending}
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <button disabled={isSending} onClick={handleSend}>
+        {isSending ? "Sending..." : "Send"}
+      </button>
+      {isSending && <button onClick={handleUndo}>Undo</button>}
+    </>
+  );
 }
