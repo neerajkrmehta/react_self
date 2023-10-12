@@ -1,30 +1,29 @@
 import { useState } from "react";
 
-export default function Chat({ contact, message, dispatch }) {
+export default function Stopwatch() {
+  const [startTime, setStartTime] = useState(null);
+  const [now, setNow] = useState(null);
+
+  function handleStart() {
+    // Start counting.
+    setStartTime(Date.now());
+    setNow(Date.now());
+
+    setInterval(() => {
+      // Update the current time every 10ms.
+      setNow(Date.now());
+    }, 10);
+  }
+
+  let secondsPassed = 0;
+  if (startTime != null && now != null) {
+    secondsPassed = (now - startTime) / 1000;
+  }
+
   return (
-    <section className="chat">
-      <textarea
-        value={message}
-        placeholder={"Chat to " + contact.name}
-        onChange={(e) => {
-          dispatch({
-            type: "edited_message",
-            message: e.target.value,
-          });
-        }}
-      />
-      <br />
-      <button
-        onClick={() => {
-          alert(`Sending "${message}" to ${contact.email}`);
-          dispatch({
-            type: "edited_message",
-            message: "",
-          });
-        }}
-      >
-        Send to {contact.email}
-      </button>
-    </section>
+    <>
+      <h1>Time passed: {secondsPassed.toFixed(3)}</h1>
+      <button onClick={handleStart}>Start</button>
+    </>
   );
 }
