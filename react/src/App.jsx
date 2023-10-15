@@ -43,6 +43,9 @@ export default function CatFriends() {
               src="https://placekitten.com/g/200/200"
               alt="Tom"
               ref={firstCatRef}
+
+
+              
             />
           </li>
           <li>
