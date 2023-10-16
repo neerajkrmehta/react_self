@@ -18,7 +18,10 @@ export default function TodoList() {
 
   useEffect(() => {
     setFooter(<footer>{activeTodos.length} todos left</footer>);
-  }, [activeTodos]);
+  }, [activeTodos])
+  
+  
+  ;
 
   return (
     <>
